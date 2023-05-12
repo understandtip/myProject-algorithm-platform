@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+<title>登录页面</title>
+<link rel="stylesheet" href="../css/登录.css" />
+<link rel="stylesheet" href="../css/星空.css" />
+<script src="../js/jQuery.min.js"></script>
+<script src="../js/denglu.js"></script>
+<script type="text/javascript" src="../layui/layui.js "></script>
+</head>
+<body>
+   
+  <div class="stars"></div>
+	<!--背景层，不要删除，不然没有作用-->
+	<div class="container">
+		<div class="panel">
+			<div class="content login">
+
+				<div class="switch">
+					<span id="login" class="active">登录</span> <span>/</span> <span
+						id="signup">注册</span>
+				</div>
+ 
+				<form class="signupbut" action="" method="post" onsubmit="">
+					<div class="input" id="username"  placeholder="用户名">
+						<input type="text" name="name" required lay-verify="required"
+							autocomplete="off" class="layui-input">
+					</div>
+					<div class="input" id="fristpass" placeholder="密 码">
+						<input type="password" name="pwd" required lay-verify="required"
+							autocomplete="off" class="layui-input">
+					</div>
+					<div class="input" id="repeatpass" placeholder="再次输入密 码">
+						<input type="password" name="pwdagin" required lay-verify="required" 
+						autocomplete="off" class="layui-input">
+					</div>
+
+					<button type="submit" >注册</button>
+				</form>
+
+				<form class="loginbut" action="" method="post" onsubmit="">
+
+					<div class="input" id="loginname" placeholder="用户名">
+						<input type="text" name="name" required lay-verify="required"
+							autocomplete="off" class="layui-input">
+					</div>
+					<div class="input" id="loginword" placeholder="密 码">
+						<input type="password" name="pwd" required lay-verify="required"
+							autocomplete="off" class="layui-input">
+					</div>
+					<button type="submit">登录</button>
+				</form>
+			</div>
+		</div>
+	</div>
+	<script>
+		$(document).ready(
+				function() {
+					var stars = 800; /*星星的密集程度，数字越大越多*/
+					var $stars = $(".stars");
+					var r = 800; /*星星的看起来的距离,值越大越远,可自行调制到自己满意的样子*/
+					for (var i = 0; i < stars; i++) {
+						var $star = $("<div/>").addClass("star");
+						$stars.append($star);
+					}
+					$(".star").each(
+							function() {
+								var cur = $(this);
+								var s = 0.2 + (Math.random() * 1);
+								var curR = r + (Math.random() * 300);
+								cur.css({
+									transformOrigin : "0 0 " + curR + "px",
+									transform : " translate3d(0,0,-" + curR
+											+ "px) rotateY("
+											+ (Math.random() * 360)
+											+ "deg) rotateX("
+											+ (Math.random() * -50)
+											+ "deg) scale(" + s + "," + s + ")"
+
+								})
+							})
+
+	                					
+		})
+			
+	</script>	
+</body>
+</html>

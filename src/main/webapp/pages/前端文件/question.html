@@ -1,0 +1,705 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>C语言问题库</title>
+    <style>
+        .el-table .warning-row {
+            background: oldlace;
+        }
+
+        .el-table .success-row {
+            background: #f0f9eb;
+        }
+    </style>
+
+</head>
+<body>
+<div id="app">
+
+    <!--导航菜单栏-->
+    <!--<div class="line"></div>
+    <el-menu
+            :default-active="activeIndex2"
+            class="el-menu-demo"
+            mode="horizontal"
+            @select="handleSelect"
+            background-color="#545c64"
+            text-color="#fff"
+            active-text-color="#ffd04b">
+        <el-menu-item index="1">处理中心</el-menu-item>
+        <el-submenu index="2">
+            <template slot="title">我的工作台</template>
+            <el-menu-item index="2-1">选项1</el-menu-item>
+            <el-menu-item index="2-2">选项2</el-menu-item>
+            <el-menu-item index="2-3">选项3</el-menu-item>
+            <el-submenu index="2-4">
+                <template slot="title">选项4</template>
+                <el-menu-item index="2-4-1">选项1</el-menu-item>
+                <el-menu-item index="2-4-2">选项2</el-menu-item>
+                <el-menu-item index="2-4-3" @click="onforward">选项3</el-menu-item>
+            </el-submenu>
+        </el-submenu>
+        <el-menu-item index="3" disabled>消息中心</el-menu-item>
+        <el-menu-item index="4"><a href="http://localhost:8080/brand-case/stream" target="_blank">品牌登录界面</a></el-menu-item>
+    </el-menu>-->
+
+    <!--侧栏
+    <el-radio-group v-model="isCollapse" style="margin-bottom: 20px;">
+        <el-radio-button :label="false">展开</el-radio-button>
+        <el-radio-button :label="true">收起</el-radio-button>
+    </el-radio-group>
+    <el-menu default-active="1-4-1" class="el-menu-vertical-demo" @open="handleOpen" @close="handleClose" :collapse="isCollapse">
+        <el-submenu index="1">
+            <template slot="title">
+                <i class="el-icon-location"></i>
+                <span slot="title">导航一</span>
+            </template>
+            <el-menu-item-group>
+                <span slot="title">分组一</span>
+                <el-menu-item index="1-1">选项1</el-menu-item>
+                <el-menu-item index="1-2">选项2</el-menu-item>
+            </el-menu-item-group>
+            <el-menu-item-group title="分组2">
+                <el-menu-item index="1-3">选项3</el-menu-item>
+            </el-menu-item-group>
+            <el-submenu index="1-4">
+                <span slot="title">选项4</span>
+                <el-menu-item index="1-4-1">选项1</el-menu-item>
+            </el-submenu>
+        </el-submenu>
+        <el-menu-item index="2">
+            <i class="el-icon-menu"></i>
+            <span slot="title">导航二</span>
+        </el-menu-item>
+        <el-menu-item index="3" disabled>
+            <i class="el-icon-document"></i>
+            <span slot="title">导航三</span>
+        </el-menu-item>
+        <el-menu-item index="4">
+            <i class="el-icon-setting"></i>
+            <span slot="title">导航四</span>
+        </el-menu-item>
+    </el-menu>
+    <style>
+        .el-menu-vertical-demo:not(.el-menu--collapse) {
+            width: 200px;
+            min-height: 400px;
+        }
+    </style>-->
+
+    <!--搜索表单-->
+    <!--<el-form :inline="true" :model="question" class="demo-form-inline">
+
+        <el-form-item label="题干内容">
+            <el-input v-model="question.questionMainbody" placeholder="题干内容"></el-input>
+        </el-form-item>
+
+        <el-form-item>
+            <el-button type="primary" @click="onSubmit">查询</el-button>
+        </el-form-item>
+    </el-form>-->
+    <!--<el-divider></el-divider>&lt;!&ndash;分割线&ndash;&gt;
+    &lt;!&ndash;传入数据&ndash;&gt;
+    <el-upload
+            class="upload-demo"
+            action="https://jsonplaceholder.typicode.com/posts/"
+            :on-preview="handlePreview"
+            :on-remove="handleRemove"
+            :before-remove="beforeRemove"
+            multiple
+            :limit="3"
+            :on-exceed="handleExceed"
+            :file-list="fileList">
+        <el-button size="small" type="primary">点击上传</el-button>
+        <div slot="tip" class="el-upload__tip">可以上传视频文件、文档文件</div>
+    </el-upload>
+    <el-divider></el-divider>&lt;!&ndash;分割线&ndash;&gt;-->
+
+    <!--按钮-->
+    <!--<el-row>
+
+        &lt;!&ndash;<el-button type="danger" @click="deleteByIds" plain>批量删除</el-button>&ndash;&gt;
+        <el-button type="primary" plain @click="dialogVisible = true">新增</el-button>
+
+    </el-row>-->
+
+    <!--添加数据对话框表单-->
+    <el-dialog
+            title="问题内容"
+            :visible.sync="dialogVisible"
+            width="30%"
+    >
+
+        <el-form ref="form" :model="question" label-width="80px">
+            <el-form-item label="问题题干">
+                <el-input v-model="question.questionMain"></el-input>
+            </el-form-item>
+            <el-form-item label="选项A">
+                <el-input v-model="question.questionA"></el-input>
+            </el-form-item>
+            <el-form-item label="选项B">
+                <el-input v-model="question.questionB"></el-input>
+            </el-form-item>
+            <el-form-item label="选项C">
+                <el-input type="textarea" v-model="question.questionC"></el-input>
+            </el-form-item>
+            <el-form-item label="选项D">
+                <el-input v-model="question.questionD"></el-input>
+            </el-form-item>
+            <el-form-item label="正确选项">
+                <el-input v-model="question.questionAnswer"></el-input>
+            </el-form-item>
+            <el-form-item>
+                <el-button type="primary" @click="addQuestion">提交</el-button>
+                <el-button @click="dialogVisible = false">取消</el-button>
+            </el-form-item>
+        </el-form>
+
+    </el-dialog>
+
+    <!--表格-->
+    <template>
+        <el-table
+                :data="tableData"
+                style="width: 100%"
+                :row-class-name="tableRowClassName"
+                @selection-change="handleSelectionChange"
+        >
+            <!--<el-table-column
+                    type="selection"
+                    width="55">
+            </el-table-column>-->
+            <el-table-column
+                    type="index"
+                    width="50">
+            </el-table-column>
+            <!--<el-table-column
+                    prop="id"
+                    label="题号"
+                    align="center"
+            >-->
+            </el-table-column>
+            <el-table-column
+                    prop="questionMain"
+                    label="问题题干"
+                    align="center"
+            >
+            </el-table-column>
+            <el-table-column
+                    prop="questionA"
+                    label="选项A"
+                    align="center"
+            >
+            </el-table-column>
+            <el-table-column
+                    prop="questionB"
+                    label="选项B"
+                    align="center">
+            </el-table-column>
+            <el-table-column
+                    prop="questionC"
+                    label="选项C"
+                    align="center">
+            </el-table-column>
+            <el-table-column
+                    prop="questionD"
+                    label="选项D"
+                    align="center">
+            </el-table-column>
+
+            <el-table-column
+                    align="center"
+                    label="选项">
+                <template slot-scope="scope">
+                    <el-button type="primary" @click="judgeA(scope.row)">A</el-button>
+                    <el-button type="primary" @click="judgeB(scope.row)">B</el-button>
+                </template>
+            </el-table-column>
+            <el-table-column
+                    align="center"
+                    label="选项">
+                <template slot-scope="scope">
+                    <el-button type="primary" @click="judgeC(scope.row)">C</el-button>
+                    <el-button type="primary" @click="judgeD(scope.row)">D</el-button>
+                </template>
+            </el-table-column>
+        </el-table>
+        <el-row>
+
+        </el-row>
+        <!--<el-radio v-model="radio" label="1" @click="judge(scope.$index, scope.row)">选项A</el-radio>-->
+    </template>
+
+    <!--分页工具条-->
+    <el-pagination
+            @size-change="handleSizeChange"
+            @current-change="handleCurrentChange"
+            :current-page="currentPage"
+            :page-sizes="[100]"
+            :page-size="100"
+            layout="total, sizes, prev, pager, next, jumper"
+            :total="totalCount">
+    </el-pagination>
+
+</div>
+
+<script src="js/vue.js"></script>
+<script src="element-ui/lib/index.js"></script>
+<script src="js/axios-0.18.0.js"></script>
+<link rel="stylesheet" href="element-ui/lib/theme-chalk/index.css">
+
+<script>
+    new Vue({
+        el: "#app",
+        mounted() {
+            //在页面加载完成之后，发送异步请求，获取数据
+            this.selectAll();
+        },
+
+        methods: {
+            addQuestion() {
+                //console.log(this.question);
+                //发送异步数据使用post
+                var _this = this;
+                axios({
+                    method: "post",
+                    url: "http://localhost:8080/brand-case/question/add",
+                    data: _this.question
+                }).then(function (resp) {
+                    if (resp.data == "success") {
+                        //添加成功
+                        //关闭添加窗口
+                        _this.dialogVisible = false;
+                        //刷新页面
+                        _this.selectAll();
+                        //弹框消息提示
+                        _this.$message({
+                            message: '恭喜你，添加成功',
+                            type: 'success'
+                        });
+                    }
+                })
+            },
+            //转换到brand.html界面
+            onforward(){
+
+            },
+            //判断数据是否正确
+            judgeA(row){
+                //发送ajax异步请求
+                var _this = this;
+                _this.questionAnswer="A";
+                axios({
+                    method: "post",
+                    url: "http://localhost:8080/brand-case/question/judge?questionAnswer="+_this.questionAnswer,
+                    data: row.id
+                }).then(function (resp){
+                    if (resp.data == "success") {
+                        //反馈  选择正确
+                        // 弹出消息提示
+                        _this.$message({
+                            message: '选择正确',
+                            type: 'success'
+                        });
+                    } else {
+                        _this.$message({
+                            message: '选择错误',
+                            type: 'danger'
+                        });
+                    }
+                })
+
+            },
+            judgeB(row){
+                //发送ajax异步请求
+                var _this = this;
+                _this.questionAnswer="B";
+                axios({
+                    method: "post",
+                    url: "http://localhost:8080/brand-case/question/judge?questionAnswer="+_this.questionAnswer,
+                    data: row.id
+                }).then(function (resp){
+                    if (resp.data == "success") {
+                        //反馈  选择正确
+                        // 弹出消息提示
+                        _this.$message({
+                            message: '选择正确',
+                            type: 'success'
+                        });
+                    } else {
+                        _this.$message({
+                            message: '选择错误',
+                            type: 'danger'
+                        });
+                    }
+                })
+
+            },
+            judgeC(row){
+                //发送ajax异步请求
+                var _this = this;
+                _this.questionAnswer="C";
+                axios({
+                    method: "post",
+                    url: "http://localhost:8080/brand-case/question/judge?questionAnswer="+_this.questionAnswer,
+                    data: row.id
+                }).then(function (resp){
+                    if (resp.data == "success") {
+                        //反馈  选择正确
+                        // 弹出消息提示
+                        _this.$message({
+                            message: '选择正确',
+                            type: 'success'
+                        });
+                    } else {
+                        _this.$message({
+                            message: '选择错误',
+                            type: 'danger'
+                        });
+                    }
+                })
+
+            },
+            judgeD(row){
+                //发送ajax异步请求
+                var _this = this;
+                _this.questionAnswer="D";
+                axios({
+                    method: "post",
+                    url: "http://localhost:8080/brand-case/question/judge?questionAnswer="+_this.questionAnswer,
+                    data: row.id
+                }).then(function (resp){
+                    if (resp.data == "success") {
+                        //反馈  选择正确
+                        // 弹出消息提示
+                        _this.$message({
+                            message: '选择正确',
+                            type: 'success'
+                        });
+                    } else {
+                        _this.$message({
+                            message: '选择错误',
+                            type: 'danger'
+                        });
+                    }
+                })
+
+            },
+            deleteByIds(){
+                // 弹出确认提示框
+                this.$confirm('此操作将删除该数据, 是否继续?', '提示', {
+                    confirmButtonText: '确定',
+                    cancelButtonText: '取消',
+                    type: 'warning'
+                }).then(() => {
+                    //用户点击确认按钮
+                    //1. 创建id数组 [1,2,3], 从 this.multipleSelection 获取即可
+                    for (let i = 0; i < this.multipleSelection.length; i++) {
+                        let selectionElement = this.multipleSelection[i];
+                        this.selectedIds[i] = selectionElement.id;
+                    }
+                    //2. 发送AJAX请求
+                    var _this = this;
+                    // 发送ajax请求，添加数据
+                    axios({
+                        method:"post",
+                        url:"http://localhost:8080/brand-case/brand/deleteByIds",
+                        data:_this.selectedIds
+                    }).then(function (resp) {
+                        if(resp.data == "success"){
+                            //删除成功
+                            // 重新查询数据
+                            _this.selectAll();
+                            // 弹出消息提示
+                            _this.$message({
+                                message: '恭喜你，删除成功',
+                                type: 'success'
+                            });
+                        }
+                    })
+                }).catch(() => {
+                    //用户点击取消按钮
+                    this.$message({
+                        type: 'info',
+                        message: '已取消删除'
+                    });
+                });
+            },
+            //数据上传相关方法
+            handleRemove(file, fileList) {
+                console.log(file, fileList);
+            },
+            handlePreview(file) {
+                console.log(file);
+            },
+            handleExceed(files, fileList) {
+                this.$message.warning(`当前限制选择 3 个文件，本次选择了 ${files.length}
+                个文件，共选择了 ${files.length + fileList.length} 个文件`);
+            },
+            beforeRemove(file, fileList) {
+                return this.$confirm(`确定移除 ${ file.name }？`);
+            },
+            /*   //查询所有
+               selectAll() {
+                   var _this = this;
+                   axios({
+                       method: "get",
+                       url: "http://localhost:8080/brand-case/brand/selectAll",
+                   }).then(function (resp) {
+                       _this.tableData = resp.data;
+                   })
+               },*/
+            //分页查询
+            selectAll() {
+                var _this = this;
+                /*     axios({
+                         method: "post",
+                         url: "http://localhost:8080/brand-case/brand/selectByPageAndCondition?currentPage="+this.currentPage+"&pageSize="+this.pageSize,
+                         data:this.brand
+                     }).then(function (resp) {
+                         //设置表格数据
+                         _this.tableData = resp.data.rows;//{rows:{},totalCount:100}
+                         _this.totalCount = resp.data.totalCount;
+                     })*/
+
+                axios({
+                    method: "post",
+                    url: "http://localhost:8080/brand-case/question/selectByPage?currentPage="+this.currentPage+"&pageSize="+this.pageSize,
+                    data:_this.question
+                }).then(resp =>{
+                    //设置表格数据
+                    _this.tableData = resp.data.rows;//{rows:{},totalCount:100}
+                    _this.totalCount = resp.data.totalCount;
+                })
+            },
+            // 批量删除
+            deleteByIds(){
+                // 弹出确认提示框
+                this.$confirm('此操作将删除该数据, 是否继续?', '提示', {
+                    confirmButtonText: '确定',
+                    cancelButtonText: '取消',
+                    type: 'warning'
+                }).then(() => {
+                    //用户点击确认按钮
+                    //1. 创建id数组 [1,2,3], 从 this.multipleSelection 获取即可
+                    for (let i = 0; i < this.multipleSelection.length; i++) {
+                        let selectionElement = this.multipleSelection[i];
+                        this.selectedIds[i] = selectionElement.id;
+                    }
+                    //2. 发送AJAX请求
+                    var _this = this;
+                    // 发送ajax请求，添加数据
+                    axios({
+                        method:"post",
+                        url:"http://localhost:8080/brand-case/brand/deleteByIds",
+                        data:_this.selectedIds
+                    }).then(function (resp) {
+                        if(resp.data == "success"){
+                            //删除成功
+                            // 重新查询数据
+                            _this.selectAll();
+                            // 弹出消息提示
+                            _this.$message({
+                                message: '恭喜你，删除成功',
+                                type: 'success'
+                            });
+                        }
+                    })
+                }).catch(() => {
+                    //用户点击取消按钮
+                    this.$message({
+                        type: 'info',
+                        message: '已取消删除'
+                    });
+                });
+            },
+
+            tableRowClassName({row, rowIndex}) {
+                if (rowIndex === 1) {
+                    return 'warning-row';
+                } else if (rowIndex === 3) {
+                    return 'success-row';
+                }
+                return '';
+            },
+            //回显修改函数
+            update(row) {
+                // console.log(row);
+                this.brand = row;
+                this.updateVisible = true;
+            },
+            //修改编辑按钮方法
+            updateBrand(){
+                //发送异步数据使用post
+                var _this = this;
+                axios({
+                    method: "post",
+                    url: "http://localhost:8080/brand-case/brand/update",
+                    data: this.brand
+                }).then(function (resp) {
+                    if (resp.data == "success") {
+                        //添加成功
+                        //关闭添加窗口
+                        _this.updateVisible = false;
+                        //刷新页面
+                        _this.selectAll();
+                        //弹框消息提示
+                        _this.$message({
+                            message: '恭喜你，修改成功',
+                            type: 'success'
+                        });
+                    }
+                })
+            },
+            //删除按钮
+            deleteBrand(index, row) {
+                // console.log(index, row);
+                var _this = this;
+                axios({
+                    method: "post",
+                    url: "http://localhost:8080/brand-case/brand/delete",
+                    data: row.id
+                }).then(function (resp) {
+                    if (resp.data == "success") {
+                        //添加成功
+                        //关闭添加窗口
+                        _this.dialogVisible = false;
+                        //刷新页面
+                        _this.selectAll();
+                        //弹框消息提示
+                        _this.$message({
+                            message: '恭喜你，删除成功',
+                            type: 'success'
+                        });
+                    }
+                })
+            },
+            // 复选框选中后执行的方法
+            handleSelectionChange(val) {
+                this.multipleSelection = val;
+
+                console.log(this.multipleSelection)
+            },
+            // 查询方法
+            onSubmit() {
+                this.selectAll();
+                // console.log(this.brand);
+            },
+            // 添加数据
+            addBrand() {
+                //console.log(this.brand);
+                //发送异步数据使用post
+                var _this = this;
+                axios({
+                    method: "post",
+                    url: "http://localhost:8080/brand-case/brand/add",
+                    data: this.brand
+                }).then(function (resp) {
+                    if (resp.data == "success") {
+                        //添加成功
+                        //关闭添加窗口
+                        _this.dialogVisible = false;
+                        //刷新页面
+                        _this.selectAll();
+                        //弹框消息提示
+                        _this.$message({
+                            message: '恭喜你，添加成功',
+                            type: 'success'
+                        });
+                    }
+                })
+            },
+
+            //分页
+            handleSizeChange(val) {
+                // console.log(`每页 ${val} 条`);
+                //设置每页条数
+                this.pageSize = val;
+                this.selectAll();
+            },
+            handleCurrentChange(val) {
+                // console.log(`当前页: ${val}`);
+                //重新设置当前页码
+                this.currentPage = val;
+                //重新查询
+                this.selectAll();
+            }
+
+        },
+        data() {
+            return {
+                radio: 3,
+                //数据上传
+                fileList: [],
+                //复选框选中的id
+                selectedIds:[],
+                //每页默认显示条数
+                pageSize:100,
+                //当前页面总数据
+                totalCount:100,
+                // 当前页码
+                currentPage: 1,
+                // 添加数据对话框是否展示的标记
+                dialogVisible: false,
+                updateVisible: false,
+                //问题模型数据
+                question:{
+                    id:"",
+                    questionMainbody:"",
+                    questionA:"",
+                    questionB:"",
+                    questionC:"",
+                    questionD:"",
+                    questionAnswer:""
+                },
+                // 品牌模型数据
+                brand: {
+                    status: '',
+                    brandName: '',
+                    companyName: '',
+                    id: "",
+                    ordered: "",
+                    description: ""
+                },
+                // 复选框选中数据集合
+                multipleSelection: [],
+                // 表格数据
+                questionAnswer: [],
+                tableData: [{
+                    questionMain: '设有语句：printf("%2d",2010);，则以下叙述正确的是',
+                    questionA: '程序运行时输出 2010',
+                    questionB: '程序运行时输出 20',
+                    questionC: "程序运行时输出 10",
+                    questionD:"指定的输出宽度不够",
+                    questionAnswer:"A"
+                }, {
+                    questionMain: '设有语句：printf("%2d",2010);，则以下叙述正确的是',
+                    questionA: '程序运行时输出 2010',
+                    questionB: '程序运行时输出 20',
+                    questionC: "程序运行时输出 10",
+                    questionD:"指定的输出宽度不够",
+                    questionAnswer:"A"
+                }, {
+                    questionMain: '设有语句：printf("%2d",2010);，则以下叙述正确的是',
+                    questionA: '程序运行时输出 2010',
+                    questionB: '程序运行时输出 20',
+                    questionC: "程序运行时输出 10",
+                    questionD:"指定的输出宽度不够",
+                    questionAnswer:"A"
+                }, {
+                    questionMain: '设有语句：printf("%2d",2010);，则以下叙述正确的是',
+                    questionA: '程序运行时输出 2010',
+                    questionB: '程序运行时输出 20',
+                    questionC: "程序运行时输出 10",
+                    questionD:"指定的输出宽度不够",
+                    questionAnswer:"A"
+                }]
+            }
+        }
+    })
+
+</script>
+
+</body>
+</html>

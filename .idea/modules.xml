@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/../../../../../../workSpace/myProject/myProject.iml" filepath="$PROJECT_DIR$/../../../../../../workSpace/myProject/myProject.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../../../../../../workSpace/springboot_09_ssm/springboot_09_ssm.iml" filepath="$PROJECT_DIR$/../../../../../../workSpace/springboot_09_ssm/springboot_09_ssm.iml" />
+    </modules>
+  </component>
+</project>
